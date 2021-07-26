@@ -1,9 +1,12 @@
-﻿using System.Drawing;
+﻿
+
+using Kantaiko.ConsoleFormatting.Internal;
 
 namespace Kantaiko.ConsoleFormatting
 {
     public static class Colors
     {
+        #region Default Palette
         public static FormattedText FgBlack(this FormattedText text)
         {
             text.AddModifiers(30);
@@ -99,7 +102,9 @@ namespace Kantaiko.ConsoleFormatting
             text.AddModifiers(47);
             return text;
         }
+        #endregion
 
+        #region Rgb/Hex
         public static FormattedText FgRgb(this FormattedText text, byte red, byte green, byte blue)
         {
             text.AddModifiers(38, 2, red, green, blue);
@@ -114,14 +119,29 @@ namespace Kantaiko.ConsoleFormatting
 
         public static FormattedText FgHex(this FormattedText text, string hex)
         {
-            var color = ColorTranslator.FromHtml(hex);
-            return FgRgb(text, color.R, color.G, color.B);
+            var (red, green, blue) = ColorConverter.ConvertHexToRgb(hex);
+            return FgRgb(text, red, green, blue);
         }
 
         public static FormattedText BgHex(this FormattedText text, string hex)
         {
-            var color = ColorTranslator.FromHtml(hex);
-            return BgRgb(text, color.R, color.G, color.B);
+            var (red, green, blue) = ColorConverter.ConvertHexToRgb(hex);
+            return BgRgb(text, red, green, blue);
         }
+        #endregion
+
+        #region Hsl
+        public static FormattedText FgHsl(this FormattedText text, int hue, float saturation, float lightness)
+        {
+            var (red, green, blue) = ColorConverter.ConvertHslToRgb(hue, saturation, lightness);
+            return FgRgb(text, red, green, blue);
+        }
+
+        public static FormattedText BgHsl(this FormattedText text, int hue, float saturation, float lightness)
+        {
+            var (red, green, blue) = ColorConverter.ConvertHslToRgb(hue, saturation, lightness);
+            return BgRgb(text, red, green, blue);
+        }
+        #endregion
     }
 }
