@@ -4,9 +4,9 @@ A library for coloring console output using ANSI escape codes.
 
 ## Support
 
-[x] Windows (cmd, powershell, Windows Terminal, ...)
-[x] Linux
-[ ] MacOS
+- [x] Windows (cmd, powershell, Windows Terminal, ...)
+- [x] Linux
+- [ ] MacOS
 
 ## Colors
 
