@@ -1,3 +1,4 @@
+using System.Drawing;
 using Xunit;
 
 namespace Kantaiko.ConsoleFormatting.Tests
@@ -5,16 +6,18 @@ namespace Kantaiko.ConsoleFormatting.Tests
     public class FormattedTextTest
     {
         [Theory]
-        [InlineData(Color.Black, "\u001b[30m123\u001b[0m", "\u001b[40m123\u001b[0m")]
-        [InlineData(Color.Red, "\u001b[31m123\u001b[0m", "\u001b[41m123\u001b[0m")]
-        [InlineData(Color.Green, "\u001b[32m123\u001b[0m", "\u001b[42m123\u001b[0m")]
-        [InlineData(Color.Yellow, "\u001b[33m123\u001b[0m", "\u001b[43m123\u001b[0m")]
-        [InlineData(Color.Blue, "\u001b[34m123\u001b[0m", "\u001b[44m123\u001b[0m")]
-        [InlineData(Color.Magenta, "\u001b[35m123\u001b[0m", "\u001b[45m123\u001b[0m")]
-        [InlineData(Color.Cyan, "\u001b[36m123\u001b[0m", "\u001b[46m123\u001b[0m")]
-        [InlineData(Color.White, "\u001b[37m123\u001b[0m", "\u001b[47m123\u001b[0m")]
-        public void ShouldReturnCorrectColorAnsiCode(Color color, string expectedFg, string expectedBg)
+        [InlineData("Black", "\u001b[38;2;0;0;0m123\u001b[0m", "\u001b[48;2;0;0;0m123\u001b[0m")]
+        [InlineData("Red", "\u001b[38;2;255;0;0m123\u001b[0m", "\u001b[48;2;255;0;0m123\u001b[0m")]
+        [InlineData("Green", "\u001b[38;2;0;128;0m123\u001b[0m", "\u001b[48;2;0;128;0m123\u001b[0m")]
+        [InlineData("Yellow", "\u001b[38;2;255;255;0m123\u001b[0m", "\u001b[48;2;255;255;0m123\u001b[0m")]
+        [InlineData("Blue", "\u001b[38;2;0;0;255m123\u001b[0m", "\u001b[48;2;0;0;255m123\u001b[0m")]
+        [InlineData("Magenta", "\u001b[38;2;255;0;255m123\u001b[0m", "\u001b[48;2;255;0;255m123\u001b[0m")]
+        [InlineData("Cyan", "\u001b[38;2;0;255;255m123\u001b[0m", "\u001b[48;2;0;255;255m123\u001b[0m")]
+        [InlineData("Gray", "\u001b[38;2;128;128;128m123\u001b[0m", "\u001b[48;2;128;128;128m123\u001b[0m")]
+        [InlineData("White", "\u001b[38;2;255;255;255m123\u001b[0m", "\u001b[48;2;255;255;255m123\u001b[0m")]
+        public void ShouldReturnCorrectColorAnsiCode(string colorName, string expectedFg, string expectedBg)
         {
+            var color = Color.FromName(colorName);
             var fgResult = Colors.FgColor("123", color).ToString();
             var bgResult = Colors.BgColor("123", color).ToString();
 
@@ -43,7 +46,7 @@ namespace Kantaiko.ConsoleFormatting.Tests
         public void ShouldReturnCorrentMultiFormatAnsiCode()
         {
             var result = Colors.FgYellow("123").Bold().Blink().ToString();
-            var expected = "\u001b[33;1;5m123\u001b[0m";
+            var expected = "\u001b[38;2;255;255;0;1;5m123\u001b[0m";
 
             Assert.Equal(result, expected);
         }
