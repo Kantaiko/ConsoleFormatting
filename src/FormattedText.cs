@@ -25,7 +25,7 @@ namespace Kantaiko.ConsoleFormatting
 
         public int Length => _value.Length;
 
-        public IReadOnlyCollection<byte> Modifiers => _modifiers;
+        public IReadOnlyList<byte> Modifiers => _modifiers;
 
         public void AddModifier(byte modifier) => _modifiers.Add(modifier);
 
