@@ -5,6 +5,11 @@ namespace Kantaiko.ConsoleFormatting
 {
     public class FormattedText
     {
+        static FormattedText()
+        {
+            NativeMethods.EnableWindowsSupport();
+        }
+
         private readonly List<int> _modifiers = new();
 
         public FormattedText(string value, params int[] moditifers) : this(value)
@@ -15,11 +20,6 @@ namespace Kantaiko.ConsoleFormatting
         public FormattedText(string value)
         {
             Value = value;
-        }
-
-        static FormattedText()
-        {
-            NativeMethods.EnableWindowsSupport();
         }
 
         public string Value { get; }

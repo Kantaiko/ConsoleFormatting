@@ -2,6 +2,12 @@
 {
     public static class Decorations
     {
+        public static FormattedText Reset(this FormattedText text)
+        {
+            text.AddModifier(0);
+            return text;
+        }
+
         public static FormattedText Bold(this FormattedText text)
         {
             text.AddModifier(1);
@@ -38,9 +44,21 @@
             return text;
         }
 
+        public static FormattedText Hidden(this FormattedText text)
+        {
+            text.AddModifier(8);
+            return text;
+        }
+
         public static FormattedText Strike(this FormattedText text)
         {
             text.AddModifier(9);
+            return text;
+        }
+
+        public static FormattedText Overline(this FormattedText text)
+        {
+            text.AddModifier(53);
             return text;
         }
     }
