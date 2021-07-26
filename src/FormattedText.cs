@@ -10,27 +10,28 @@ namespace Kantaiko.ConsoleFormatting
             NativeMethods.EnableWindowsSupport();
         }
 
-        private readonly List<int> _modifiers = new();
+        private readonly string _value;
+        private readonly List<byte> _modifiers = new();
 
-        public FormattedText(string value, params int[] moditifers) : this(value)
+        public FormattedText(string value, params byte[] moditifers) : this(value)
         {
             _modifiers.AddRange(moditifers);
         }
 
         public FormattedText(string value)
         {
-            Value = value;
+            _value = value;
         }
 
-        public string Value { get; }
+        public int Length => _value.Length;
 
-        public IReadOnlyCollection<int> Modifiers => _modifiers;
+        public IReadOnlyCollection<byte> Modifiers => _modifiers;
 
-        public void AddModifier(int modifier) => _modifiers.Add(modifier);
+        public void AddModifier(byte modifier) => _modifiers.Add(modifier);
 
-        public void AddModifiers(params int[] modifiers) => _modifiers.AddRange(modifiers);
+        public void AddModifiers(params byte[] modifiers) => _modifiers.AddRange(modifiers);
 
-        public void RemoveModifier(int modifier)
+        public void RemoveModifier(byte modifier)
         {
             _modifiers.Remove(modifier);
         }
@@ -39,11 +40,11 @@ namespace Kantaiko.ConsoleFormatting
         {
             if (_modifiers.Count == 0)
             {
-                return Value;
+                return _value;
             }
 
             var modifiers = string.Join(";", Modifiers);
-            return $"\u001b[{modifiers}m{Value}\u001b[0m";
+            return $"\u001b[{modifiers}m{_value}\u001b[0m";
         }
 
         public static implicit operator FormattedText(string value) => new(value);

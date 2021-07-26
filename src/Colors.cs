@@ -7,101 +7,41 @@ namespace Kantaiko.ConsoleFormatting
     public static class Colors
     {
         #region Default Palette
-        public static FormattedText FgBlack(this FormattedText text)
+        public static FormattedText FgColor(this FormattedText text, Color color)
         {
-            text.AddModifiers(30);
+            text.AddModifier((byte)color);
             return text;
         }
 
-        public static FormattedText BgBlack(this FormattedText text)
+        public static FormattedText BgColor(this FormattedText text, Color color)
         {
-            text.AddModifiers(40);
+            text.AddModifier((byte) (color + 10));
             return text;
         }
 
-        public static FormattedText FgRed(this FormattedText text)
-        {
-            text.AddModifiers(31);
-            return text;
-        }
+        public static FormattedText FgBlack(this FormattedText text) => FgColor(text, Color.Black);
+        public static FormattedText BgBlack(this FormattedText text) => BgColor(text, Color.Black);
 
-        public static FormattedText BgRed(this FormattedText text)
-        {
-            text.AddModifiers(41);
-            return text;
-        }
+        public static FormattedText FgRed(this FormattedText text) => FgColor(text, Color.Red);
+        public static FormattedText BgRed(this FormattedText text) => BgColor(text, Color.Red);
 
-        public static FormattedText FgGreen(this FormattedText text)
-        {
-            text.AddModifiers(32);
-            return text;
-        }
+        public static FormattedText FgGreen(this FormattedText text) => FgColor(text, Color.Green);
+        public static FormattedText BgGreen(this FormattedText text) => BgColor(text, Color.Green);
 
-        public static FormattedText BgGreen(this FormattedText text)
-        {
-            text.AddModifiers(42);
-            return text;
-        }
+        public static FormattedText FgYellow(this FormattedText text) => FgColor(text, Color.Yellow);
+        public static FormattedText BgYellow(this FormattedText text) => BgColor(text, Color.Yellow);
 
-        public static FormattedText FgYellow(this FormattedText text)
-        {
-            text.AddModifiers(33);
-            return text;
-        }
+        public static FormattedText FgBlue(this FormattedText text) => FgColor(text, Color.Blue);
+        public static FormattedText BgBlue(this FormattedText text) => BgColor(text, Color.Blue);
 
-        public static FormattedText BgYellow(this FormattedText text)
-        {
-            text.AddModifiers(43);
-            return text;
-        }
+        public static FormattedText FgMagenta(this FormattedText text) => FgColor(text, Color.Magenta);
+        public static FormattedText BgMagenta(this FormattedText text) => BgColor(text, Color.Magenta);
 
-        public static FormattedText FgBlue(this FormattedText text)
-        {
-            text.AddModifiers(34);
-            return text;
-        }
+        public static FormattedText FgCyan(this FormattedText text) => FgColor(text, Color.Cyan);
+        public static FormattedText BgCyan(this FormattedText text) => BgColor(text, Color.Cyan);
 
-        public static FormattedText BgBlue(this FormattedText text)
-        {
-            text.AddModifiers(44);
-            return text;
-        }
-
-        public static FormattedText FgMagenta(this FormattedText text)
-        {
-            text.AddModifiers(35);
-            return text;
-        }
-
-        public static FormattedText BgMagenta(this FormattedText text)
-        {
-            text.AddModifiers(45);
-            return text;
-        }
-
-        public static FormattedText FgCyan(this FormattedText text)
-        {
-            text.AddModifiers(36);
-            return text;
-        }
-
-        public static FormattedText BgCyan(this FormattedText text)
-        {
-            text.AddModifiers(46);
-            return text;
-        }
-
-        public static FormattedText FgWhite(this FormattedText text)
-        {
-            text.AddModifiers(37);
-            return text;
-        }
-
-        public static FormattedText BgWhiteCyan(this FormattedText text)
-        {
-            text.AddModifiers(47);
-            return text;
-        }
+        public static FormattedText FgWhite(this FormattedText text) => FgColor(text, Color.White);
+        public static FormattedText BgWhite(this FormattedText text) => BgColor(text, Color.White);
         #endregion
 
         #region Rgb/Hex
