@@ -1,4 +1,11 @@
 # Change Log\n\nAll notable changes to this project will be documented in this file. See [versionize](https://github.com/saintedlama/versionize) for commit guidelines.\n
+<a name="0.2.0"></a>
+## [0.2.0](https://www.github.com/Kantaiko/ConsoleFormatting/releases/tag/v0.2.0) (2021-7-31)
+
+### Features
+
+* Replace Color enum to System.Drawing.Color ([8a8b308](https://www.github.com/Kantaiko/ConsoleFormatting/commit/8a8b308296f765be673f8421d330d14a815e2e60))
+
 <a name="0.1.0"></a>
 ## [0.1.0](https://www.github.com/Kantaiko/ConsoleFormatting/releases/tag/v0.1.0) (2021-7-26)
 
