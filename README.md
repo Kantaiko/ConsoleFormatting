@@ -1,50 +1,40 @@
 ﻿# Kantaiko.ConsoleFormatting
 
-A library for coloring console output using ANSI escape codes.
+A C# library for coloring console output using ANSI escape codes.
 
 ## Support
 
 - [x] Windows (cmd, powershell, Windows Terminal, ...)
 - [x] Linux
-- [ ] MacOS
+- [ ] MacOS (not tested yet)
 
 ## Colors
 
-All color methods has Fg (Foreground) and Bg (Background) versions.
+All color methods have Fg (Foreground) and Bg (Background) versions.
 
-### Default palette
+Library uses colors from [System.Drawing.Color](https://docs.microsoft.com/ru-ru/dotnet/api/system.drawing.color) 
 
-```C#
-Colors.FgColor(...)
-Colors.FgBlack(...)
-Colors.FgRed(...)
-Colors.FgGreen(...)
-Colors.FgYellow(...)
-Colors.FgBlue(...)
-Colors.FgMagenta(...)
-Colors.FgCyan(...)
-Colors.FgWhite(...)
-
-Colors.BgColor(...)
-Colors.BgBlack(...)
-Colors.BgRed(...)
-Colors.BgGreen(...)
-Colors.BgYellow(...)
-Colors.BgBlue(...)
-Colors.BgMagenta(...)
-Colors.BgCyan(...)
-Colors.BgWhite(...)
-```
+#### Default palette
 
 ```C#
-Console.WriteLine(Colors.FgColor("Color", Color.Black));
-Console.WriteLine(Colors.BgColor("Color", Color.Black));
+Console.WriteLine(Colors.FgColor("Foreground Color", Color.Black));
+Console.WriteLine(Colors.BgColor("Background Color", Color.Black));
 
 Console.WriteLine(Colors.FgRed("Red"));
 Console.WriteLine(Colors.BgRed("Green"));
 ```
 
-### RGB / HEX / HSL
+- Black
+- Red
+- Green
+- Yellow
+- Blue
+- Magenta
+- Cyan
+- Gray
+- White
+
+#### RGB / HEX / HSL
 
 ```C#
 Console.WriteLine(Colors.FgHex(".NET", "#FFCC00"));
@@ -55,24 +45,21 @@ Console.WriteLine(Colors.FgHsl(".NET", 290, 1f, 0.25f));
 ## Decorations
 
 ```C#
-Decorations.Decoration(...)
-Decorations.Reset(...)
-Decorations.Bold(...)
-Decorations.Dim(...)
-Decorations.Italic(...)
-Decorations.Underline(...)
-Decorations.Blink(...)
-Decorations.Inverse(...)
-Decorations.Hidden(...)
-Decorations.Strike(...)
-Decorations.Overline(...)
-```
-
-```C#
 Console.WriteLine(Decorations.Decoration("Blink", TextDecoration.Blink));
 
 Console.WriteLine(Decorations.Underline("Underline"));
 ```
+
+- Reset
+- Bold
+- Dim
+- Italic
+- Underline
+- Blink
+- Inverse
+- Hidden
+- Strike
+- Overline
 
 ## Chain formatting
 
