@@ -3,7 +3,7 @@ using Kantaiko.ConsoleFormatting.Internal;
 
 namespace Kantaiko.ConsoleFormatting
 {
-    public class FormattedText
+    public sealed class FormattedText
     {
         static FormattedText()
         {

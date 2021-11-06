@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System.Diagnostics;
+using System.Drawing;
 
 namespace Kantaiko.ConsoleFormatting
 {
@@ -6,9 +7,51 @@ namespace Kantaiko.ConsoleFormatting
     {
         #region Default Palette
 
-        public static FormattedText FgColor(this FormattedText text, Color color) => FgRgb(text, color.R, color.G, color.B);
+        public static FormattedText FgColor(this FormattedText text, Color color)
+        {
+            byte? moditifer = color switch
+            {
+                { Name: "Black" } => 30,
+                { Name: "Red" } => 31,
+                { Name: "Green" } => 32,
+                { Name: "Yellow" } => 33,
+                { Name: "Blue" } => 34,
+                { Name: "Magenta" } => 35,
+                { Name: "Cyan" } => 36,
+                { Name: "White" } => 37,
+                _ => null
+            };
 
-        public static FormattedText BgColor(this FormattedText text, Color color) => BgRgb(text, color.R, color.G, color.B);
+            if (moditifer.HasValue)
+            {
+                return new FormattedText(text, moditifer.Value);
+            }
+
+            return FgRgb(text, color.R, color.G, color.B);
+        }
+
+        public static FormattedText BgColor(this FormattedText text, Color color)
+        {
+            byte? moditifer = color switch
+            {
+                { Name: "Black" } => 40,
+                { Name: "Red" } => 41,
+                { Name: "Green" } => 42,
+                { Name: "Yellow" } => 43,
+                { Name: "Blue" } => 44,
+                { Name: "Magenta" } => 45,
+                { Name: "Cyan" } => 46,
+                { Name: "White" } => 47,
+                _ => null
+            };
+
+            if (moditifer.HasValue)
+            {
+                return new FormattedText(text, moditifer.Value);
+            }
+
+            return BgRgb(text, color.R, color.G, color.B);
+        }
 
         public static FormattedText FgBlack(this FormattedText text) => FgColor(text, Color.Black);
 
