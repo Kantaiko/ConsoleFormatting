@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace Kantaiko.ConsoleFormatting.Internal
 {
-    internal class NativeMethods
+    internal class Windows
     {
         private const int StdOutputHandle = -11;
         private const uint EnableVirtualTerminalProcessing = 0x0004;
@@ -17,19 +17,16 @@ namespace Kantaiko.ConsoleFormatting.Internal
         [DllImport("kernel32.dll", SetLastError = true)]
         private static extern IntPtr GetStdHandle(int nStdHandle);
 
-        public static void EnableWindowsSupport()
+        public static bool TryEnableColors()
         {
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            var hConsole = GetStdHandle(StdOutputHandle);
+
+            if (!GetConsoleMode(hConsole, out var mode))
             {
-                var hConsole = GetStdHandle(StdOutputHandle);
-
-                if (!GetConsoleMode(hConsole, out var mode))
-                {
-                    return;
-                }
-
-                SetConsoleMode(hConsole, mode | EnableVirtualTerminalProcessing);
+                return false;
             }
+
+            return SetConsoleMode(hConsole, mode | EnableVirtualTerminalProcessing);
         }
     }
 }

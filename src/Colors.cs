@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace Kantaiko.ConsoleFormatting
 {
@@ -9,48 +8,12 @@ namespace Kantaiko.ConsoleFormatting
 
         public static FormattedText FgColor(this FormattedText text, Color color)
         {
-            byte? moditifer = color switch
-            {
-                { Name: "Black" } => 30,
-                { Name: "Red" } => 31,
-                { Name: "Green" } => 32,
-                { Name: "Yellow" } => 33,
-                { Name: "Blue" } => 34,
-                { Name: "Magenta" } => 35,
-                { Name: "Cyan" } => 36,
-                { Name: "White" } => 37,
-                _ => null
-            };
-
-            if (moditifer.HasValue)
-            {
-                return new FormattedText(text, moditifer.Value);
-            }
-
-            return FgRgb(text, color.R, color.G, color.B);
+            return TextFormatter.Color(text, color, true);
         }
 
         public static FormattedText BgColor(this FormattedText text, Color color)
         {
-            byte? moditifer = color switch
-            {
-                { Name: "Black" } => 40,
-                { Name: "Red" } => 41,
-                { Name: "Green" } => 42,
-                { Name: "Yellow" } => 43,
-                { Name: "Blue" } => 44,
-                { Name: "Magenta" } => 45,
-                { Name: "Cyan" } => 46,
-                { Name: "White" } => 47,
-                _ => null
-            };
-
-            if (moditifer.HasValue)
-            {
-                return new FormattedText(text, moditifer.Value);
-            }
-
-            return BgRgb(text, color.R, color.G, color.B);
+            return TextFormatter.Color(text, color, false);
         }
 
         public static FormattedText FgBlack(this FormattedText text) => FgColor(text, Color.Black);
@@ -91,46 +54,42 @@ namespace Kantaiko.ConsoleFormatting
 
         #endregion
 
-        #region Rgb/Hex
+        #region Rgb/Hex/Hsl
 
         public static FormattedText FgRgb(this FormattedText text, byte red, byte green, byte blue)
         {
-            text.AddModifiers(38, 2, red, green, blue);
-            return text;
+            var color = Color.FromArgb(red, green, blue);
+            return FgColor(text, color);
         }
 
         public static FormattedText BgRgb(this FormattedText text, byte red, byte green, byte blue)
         {
-            text.AddModifiers(48, 2, red, green, blue);
-            return text;
+            var color = Color.FromArgb(red, green, blue);
+            return BgColor(text, color);
         }
 
         public static FormattedText FgHex(this FormattedText text, string hex)
         {
-            var (red, green, blue) = Internal.ColorConverter.ConvertHexToRgb(hex);
-            return FgRgb(text, red, green, blue);
+            var color = ColorSystem.ColorTranslator.FromHex(hex);
+            return FgColor(text, color);
         }
 
         public static FormattedText BgHex(this FormattedText text, string hex)
         {
-            var (red, green, blue) = Internal.ColorConverter.ConvertHexToRgb(hex);
-            return BgRgb(text, red, green, blue);
+            var color = ColorSystem.ColorTranslator.FromHex(hex);
+            return BgColor(text, color);
         }
-
-        #endregion
-
-        #region Hsl
 
         public static FormattedText FgHsl(this FormattedText text, int hue, float saturation, float lightness)
         {
-            var (red, green, blue) = Internal.ColorConverter.ConvertHslToRgb(hue, saturation, lightness);
-            return FgRgb(text, red, green, blue);
+            var color = ColorSystem.ColorTranslator.FromHsl(hue, saturation, lightness);
+            return FgColor(text, color);
         }
 
         public static FormattedText BgHsl(this FormattedText text, int hue, float saturation, float lightness)
         {
-            var (red, green, blue) = Internal.ColorConverter.ConvertHslToRgb(hue, saturation, lightness);
-            return BgRgb(text, red, green, blue);
+            var color = ColorSystem.ColorTranslator.FromHsl(hue, saturation, lightness);
+            return BgColor(text, color);
         }
 
         #endregion

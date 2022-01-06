@@ -2,10 +2,9 @@
 {
     public static class Decorations
     {
-        public static FormattedText Decoration(this FormattedText text, TextDecoration textDecoration)
+        public static FormattedText Decoration(this FormattedText text, TextDecoration decoration)
         {
-            text.AddModifier((byte) textDecoration);
-            return text;
+            return TextFormatter.Decoration(text, decoration);
         }
 
         public static FormattedText Reset(this FormattedText text) => Decoration(text, TextDecoration.Reset);

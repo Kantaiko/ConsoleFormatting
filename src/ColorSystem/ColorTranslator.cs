@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Drawing;
 
-namespace Kantaiko.ConsoleFormatting.Internal
+namespace Kantaiko.ConsoleFormatting.ColorSystem
 {
-    internal static class ColorConverter
+    internal static class ColorTranslator
     {
-        public static (byte Red, byte Green, byte Blue) ConvertHexToRgb(string hex)
+        public static Color FromHex(string hex)
         {
-            var color = ColorTranslator.FromHtml(hex);
-            return (color.R, color.G, color.B);
+            return System.Drawing.ColorTranslator.FromHtml(hex);
         }
 
-        public static (byte Red, byte Green, byte Blue) ConvertHslToRgb(int hue, float saturation, float lightness)
+        public static Color FromHsl(int hue, float saturation, float lightness)
         {
             if (hue < 0 || hue > 360)
             {
@@ -31,7 +30,7 @@ namespace Kantaiko.ConsoleFormatting.Internal
             if (saturation == 0)
             {
                 var color = (byte) (lightness * 255);
-                return (color, color, color);
+                return Color.FromArgb(color, color, color);
             }
 
             var q = lightness < 0.5
@@ -45,7 +44,7 @@ namespace Kantaiko.ConsoleFormatting.Internal
             var green = (byte)Math.Round(255 * ConvertHueToRgb(p, q, h));
             var blue = (byte)Math.Round(255 * ConvertHueToRgb(p, q, h - 1.0f / 3));
 
-            return (red, green, blue);
+            return Color.FromArgb(red, green, blue);
         }
 
         private static float ConvertHueToRgb(float p, float q, float hue)

@@ -1,5 +1,5 @@
 ﻿using System;
-using Kantaiko.ConsoleFormatting.Internal;
+using Kantaiko.ConsoleFormatting.ColorSystem;
 using Xunit;
 
 namespace Kantaiko.ConsoleFormatting.Tests
@@ -12,10 +12,12 @@ namespace Kantaiko.ConsoleFormatting.Tests
         [InlineData(254, 0.69f, 0.494f, 80, 39, 213)]
         public void ShouldConvertHslToRgb(int hue, float saturation, float lightness, byte expectedRed, byte expectedGreen, byte expectedBlue)
         {
-            var result = ColorConverter.ConvertHslToRgb(hue, saturation, lightness);
+            var color = ColorTranslator.FromHsl(hue, saturation, lightness);
+
+            var actual = (color.R, color.G, color.B);
             var expected = (expectedRed, expectedGreen, expectedBlue);
 
-            Assert.Equal(result, expected);
+            Assert.Equal(expected, actual);
         }
 
         [Theory]
@@ -25,7 +27,7 @@ namespace Kantaiko.ConsoleFormatting.Tests
         {
             void Action()
             {
-                ColorConverter.ConvertHslToRgb(hue, 0f, 0f);
+                ColorTranslator.FromHsl(hue, 0f, 0f);
             }
 
             var exception = Assert.Throws<ArgumentOutOfRangeException>(Action);
@@ -39,7 +41,7 @@ namespace Kantaiko.ConsoleFormatting.Tests
         {
             void Action()
             {
-                ColorConverter.ConvertHslToRgb(0, saturation, 0f);
+                ColorTranslator.FromHsl(0, saturation, 0f);
             }
 
             var exception = Assert.Throws<ArgumentOutOfRangeException>(Action);
@@ -53,7 +55,7 @@ namespace Kantaiko.ConsoleFormatting.Tests
         {
             void Action()
             {
-                ColorConverter.ConvertHslToRgb(0, 0f, lightness);
+                ColorTranslator.FromHsl(0, 0f, lightness);
             }
 
             var exception = Assert.Throws<ArgumentOutOfRangeException>(Action);
@@ -67,10 +69,12 @@ namespace Kantaiko.ConsoleFormatting.Tests
         [InlineData("#FFCC00", 255, 204, 0)]
         public void ShouldConvertHexToRgb(string hex, byte expectedRed, byte expectedGreen, byte expectedBlue)
         {
-            var result = ColorConverter.ConvertHexToRgb(hex);
+            var color = ColorTranslator.FromHex(hex);
+
+            var actual = (color.R, color.G, color.B);
             var expected = (expectedRed, expectedGreen, expectedBlue);
 
-            Assert.Equal(result, expected);
+            Assert.Equal(expected, actual);
         }
     }
 }

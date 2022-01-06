@@ -1,21 +1,15 @@
 ﻿using System.Collections.Generic;
-using Kantaiko.ConsoleFormatting.Internal;
 
 namespace Kantaiko.ConsoleFormatting
 {
     public sealed class FormattedText
     {
-        static FormattedText()
-        {
-            NativeMethods.EnableWindowsSupport();
-        }
-
         private readonly string _value;
         private readonly List<byte> _modifiers = new();
 
         public FormattedText(string value, params byte[] moditifers) : this(value)
         {
-            _modifiers.AddRange(moditifers);
+            AddModifiers(moditifers);
         }
 
         public FormattedText(string value)
@@ -23,18 +17,11 @@ namespace Kantaiko.ConsoleFormatting
             _value = value;
         }
 
-        public int Length => _value.Length;
-
         public IReadOnlyList<byte> Modifiers => _modifiers;
 
-        public void AddModifier(byte modifier) => _modifiers.Add(modifier);
+        public int Length => _value.Length;
 
         public void AddModifiers(params byte[] modifiers) => _modifiers.AddRange(modifiers);
-
-        public void RemoveModifier(byte modifier)
-        {
-            _modifiers.Remove(modifier);
-        }
 
         public override string ToString()
         {

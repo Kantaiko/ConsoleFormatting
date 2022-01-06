@@ -18,11 +18,12 @@ namespace Kantaiko.ConsoleFormatting.Tests
         public void ShouldReturnCorrectColorAnsiCode(string colorName, string expectedFg, string expectedBg)
         {
             var color = Color.FromName(colorName);
-            var fgResult = Colors.FgColor("123", color).ToString();
-            var bgResult = Colors.BgColor("123", color).ToString();
 
-            Assert.Equal(fgResult, expectedFg);
-            Assert.Equal(bgResult, expectedBg);
+            var actualFg = Colors.FgColor("123", color).ToString();
+            var actualBg = Colors.BgColor("123", color).ToString();
+
+            Assert.Equal(expectedFg, actualFg);
+            Assert.Equal(expectedBg, actualBg);
         }
 
         [Theory]
@@ -38,17 +39,17 @@ namespace Kantaiko.ConsoleFormatting.Tests
         [InlineData(TextDecoration.Overline, "\u001b[53m123\u001b[0m")]
         public void ShouldReturnCorrectDecorationAnsiCode(TextDecoration decoration, string expected)
         {
-            var result = Decorations.Decoration("123", decoration);
-            Assert.Equal(result, expected);
+            var actual = Decorations.Decoration("123", decoration);
+            Assert.Equal(expected, actual);
         }
 
         [Fact]
         public void ShouldReturnCorrentMultiFormatAnsiCode()
         {
-            var result = Colors.FgYellow("123").Bold().Blink().ToString();
+            var actual = Colors.FgYellow("123").Bold().Blink().ToString();
             var expected = "\u001b[33;1;5m123\u001b[0m";
 
-            Assert.Equal(result, expected);
+            Assert.Equal(expected, actual);
         }
     }
 }
