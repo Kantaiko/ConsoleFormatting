@@ -44,7 +44,7 @@ namespace Kantaiko.ConsoleFormatting
             }
 
             var modifiers = string.Join(";", Modifiers);
-            return $"\u001b[{modifiers}m{_value}\u001b[0m";
+            return $"\u001b[{modifiers}m{_value}\u001b[m";
         }
 
         public static implicit operator FormattedText(string value) => new(value);
