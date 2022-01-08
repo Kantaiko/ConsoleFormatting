@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [versionize](https://github.com/saintedlama/versionize) for commit guidelines.
 
+<a name="0.2.1"></a>
+## [0.2.1](https://www.github.com/Kantaiko/ConsoleFormatting/releases/tag/v0.2.1) (2022-1-8)
+
+### Bug Fixes
+
+* Remove '0' from ansi reset text escape code ([1d0bb2a](https://www.github.com/Kantaiko/ConsoleFormatting/commit/1d0bb2af1cf6f3eb1999d62b3f2eb06968247b9c))
+
 <a name="0.2.0"></a>
 ## [0.2.0](https://www.github.com/Kantaiko/ConsoleFormatting/releases/tag/v0.2.0) (2021-7-31)
 
